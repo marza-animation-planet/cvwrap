@@ -24,7 +24,7 @@ targets = [
       "incdirs": ["src"],
       "srcs": glob.glob("src/*.cpp"),
       "custom": [maya.Require, CustomCompilerFlags],
-      "libs": ([] if maya.Version(asString=False) < 2016 else ["clew"]),
+      "libs": ([] if maya.Version(asString=False) < 201600 else ["clew"]),
       "install": {"maya/scripts": glob.glob("scripts/*")}
    }
 ]
