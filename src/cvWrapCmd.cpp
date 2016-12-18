@@ -25,7 +25,7 @@
 /**
   A version number used to support future updates to the binary wrap binding file.
 */
-const float kWrapFileVersion = 1.0f;
+//const float kWrapFileVersion = 1.0f;
 
 const char* CVWrapCmd::kName = "cvWrap";
 const char* CVWrapCmd::kNameFlagShort = "-n";
@@ -65,8 +65,8 @@ void DisplayHelp() {
 
 
 CVWrapCmd::CVWrapCmd()
-    : radius_(0.1),
-      name_("cvWrap#"),
+    : name_("cvWrap#"),
+      radius_(0.1),
       command_(kCommandCreate),
       useBinding_(false),
       newBindMesh_(false) {
