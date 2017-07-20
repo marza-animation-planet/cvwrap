@@ -218,9 +218,9 @@ CVWrap::CVWrap() {
 }
 
 CVWrap::~CVWrap() {
-  if(onDeleteCallbackId != 0)
+  if (onDeleteCallbackId != 0)
     MMessage::removeCallback(onDeleteCallbackId);
-	
+  
   MThreadPool::release();
   std::vector<ThreadData<TaskData>*>::iterator iter;
   for (iter = threadData_.begin(); iter != threadData_.end(); ++iter) {
@@ -486,7 +486,7 @@ MPxGPUDeformer::DeformerStatus CVWrapGPU::evaluate(MDataBlock& block,
     openCLKernelFile += "/cvwrap.cl";
     kernel_ = MOpenCLInfo::getOpenCLKernel(openCLKernelFile, "cvwrap");
     if (kernel_.isNull())  {
-      std::cerr << "Could not compile kernel " << openCLKernelFile << "\n";
+      std::cerr << "Could not compile kernel " << openCLKernelFile.asChar() << "\n";
       return MPxGPUDeformer::kDeformerFailure;
     }
   }
