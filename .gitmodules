@@ -1,6 +1,6 @@
 [submodule "cgcmake"]
 	path = cgcmake
-	url = git@github.com:chadmv/cgcmake.git
+	url = git://github.com/chadmv/cgcmake.git
 [submodule "excons"]
 	path = excons
 	url = git://github.com/gatgui/excons.git
