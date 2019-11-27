@@ -3,6 +3,10 @@ import sys
 import glob
 import excons.tools.maya as maya
 
+maya.SetupMscver()
+
+env = excons.MakeBaseEnv()
+
 defines = []
 if sys.platform == "win32":
    defines.append("NOMINMAX")
@@ -28,10 +32,6 @@ targets = [
       "install": {"maya/scripts": glob.glob("scripts/*")}
    }
 ]
-
-maya.SetupMscver()
-
-env = excons.MakeBaseEnv()
 
 excons.DeclareTargets(env, targets)
 
