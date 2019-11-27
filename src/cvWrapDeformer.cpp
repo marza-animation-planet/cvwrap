@@ -461,7 +461,7 @@ CVWrapGPU::~CVWrapGPU() {
   terminate();
 }
 
-#if MAYA_API_VERSION <= 201700
+#if MAYA_API_VERSION < 201800
 MPxGPUDeformer::DeformerStatus CVWrapGPU::evaluate(MDataBlock& block,
                                                    const MEvaluationNode& evaluationNode,
                                                    const MPlug& plug,
@@ -501,7 +501,7 @@ MPxGPUDeformer::DeformerStatus  CVWrapGPU::evaluate(MDataBlock& block,
   if (!kernel_.get())  {
     // Load the OpenCL kernel if we haven't yet.
     MString openCLKernelFile(pluginLoadPath);
-#if MAYA_API_VERSION > 201700
+#if MAYA_API_VERSION >= 201800
 	openCLKernelFile += "/cvwrap.cl";
 #else
     openCLKernelFile += "/cvwrap_pre2018.cl";
@@ -545,7 +545,7 @@ MPxGPUDeformer::DeformerStatus  CVWrapGPU::evaluate(MDataBlock& block,
   MOpenCLInfo::checkCLErrorStatus(err);
   err = clSetKernelArg(kernel_.get(), parameterId++, sizeof(cl_mem), (void*)drivenMatrices_.getReadOnlyRef());
   MOpenCLInfo::checkCLErrorStatus(err);
-#if MAYA_API_VERSION > 201700
+#if MAYA_API_VERSION >= 201800
   // get the world space and inverse world space matrix mem handles
   MGPUDeformerBuffer inputWorldSpaceMatrixDeformerBuffer = inputData.getBuffer(sGeometryMatrixName());
   const MAutoCLMem deformerWorldSpaceMatrix = inputWorldSpaceMatrixDeformerBuffer.buffer();
@@ -601,7 +601,7 @@ MPxGPUDeformer::DeformerStatus  CVWrapGPU::evaluate(MDataBlock& block,
     outputEvent.getReferenceForAssignment() );
   MOpenCLInfo::checkCLErrorStatus(err);
 
-#if MAYA_API_VERSION > 201700
+#if MAYA_API_VERSION >= 201800
   // set the buffer into the output data
   outputDeformerBuffer.setBufferReadyEvent(outputEvent);
   outputData.setBuffer(outputDeformerBuffer);
@@ -733,7 +733,7 @@ MStatus CVWrapGPU::EnqueueDriverData(MDataBlock& data, const MEvaluationNode&, c
 	delete [] driverData;
 
   int idx = 0;
-#if MAYA_API_VERSION <= 201700
+#if MAYA_API_VERSION < 201800
   // Store the driven matrices on the gpu.
   MArrayDataHandle hInputs = data.inputValue(CVWrap::input, &status);
   unsigned int geomIndex = plug.logicalIndex();
@@ -772,7 +772,7 @@ MStatus CVWrapGPU::EnqueueDriverData(MDataBlock& data, const MEvaluationNode&, c
 			drivenMatrices[idx++] = (float)scaleMatrix(row, column);
     }
 	}
-#if MAYA_API_VERSION <= 201700
+#if MAYA_API_VERSION < 201800
   err = EnqueueBuffer(drivenMatrices_, 48 * sizeof(float), (void*)drivenMatrices);
 #else
   err = EnqueueBuffer(drivenMatrices_, 16 * sizeof(float), (void*)drivenMatrices);

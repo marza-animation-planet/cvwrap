@@ -100,7 +100,7 @@ class CVWrapGPU : public MPxGPUDeformer {
 	CVWrapGPU();
 	virtual ~CVWrapGPU();
 
-#if MAYA_API_VERSION <= 201700
+#if MAYA_API_VERSION < 201800
 	virtual MPxGPUDeformer::DeformerStatus evaluate(MDataBlock& block, const MEvaluationNode&,
                                                   const MPlug& plug, unsigned int numElements,
                                                   const MAutoCLMem, const MAutoCLEvent,
