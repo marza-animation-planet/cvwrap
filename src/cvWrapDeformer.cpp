@@ -37,13 +37,13 @@ MStatus CVWrap::initialize() {
 
   aDriverGeo = tAttr.create("driver", "driver", MFnData::kMesh);
   status = addAttribute(aDriverGeo);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aDriverGeo, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
   aBindDriverGeo = meAttr.create("bindMesh", "bindMesh");
   status = addAttribute(aBindDriverGeo);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
   /* Each outputGeometry needs:
   -- bindData
@@ -78,36 +78,36 @@ MStatus CVWrap::initialize() {
   cAttr.addChild(aBarycentricWeights);
   cAttr.addChild(aBindMatrix);
   status = addAttribute(aBindData);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aSampleComponents, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aSampleWeights, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aBindMatrix, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aTriangleVerts, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aBarycentricWeights, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
 
   aScale = nAttr.create("scale", "scale", MFnNumericData::kFloat, 1.0);
   nAttr.setKeyable(true);
   status = addAttribute(aScale);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aScale, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
   aNumTasks = nAttr.create("numTasks", "numTasks", MFnNumericData::kInt, 32);
   nAttr.setMin(1);
   nAttr.setMax(64);
   status = addAttribute(aNumTasks);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
   status = attributeAffects(aNumTasks, outputGeom);
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
   status = MGlobal::executeCommandOnIdle("makePaintable -attrType multiFloat -sm deformer cvWrap weights");
-  CHECK_MSTATUS_AND_RETURN_IT(status);
+  CHECK_STATUS_AND_RETURN_IT(status);
 
   return MS::kSuccess;
 }
