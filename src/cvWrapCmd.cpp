@@ -374,9 +374,15 @@ MStatus CVWrapCmd::CreateBindMesh(MDagPath& pathBindMesh) {
 
   // Hide the duplicate
   MFnDagNode fnBindMesh(pathBindMesh, &status);
+<<<<<<< HEAD
   CHECK_STATUS_AND_RETURN_IT(status);
   MPlug plug = fnBindMesh.findPlug("visibility", &status);
   CHECK_STATUS_AND_RETURN_IT(status);
+=======
+  CHECK_MSTATUS_AND_RETURN_IT(status);
+  MPlug plug = fnBindMesh.findPlug("visibility", false, &status);
+  CHECK_MSTATUS_AND_RETURN_IT(status);
+>>>>>>> upstream/master
   status = plug.setBool(false);
   CHECK_STATUS_AND_RETURN_IT(status);
   
